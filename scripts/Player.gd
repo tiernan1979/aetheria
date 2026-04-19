@@ -63,6 +63,8 @@ var base_jump_velocity: float = -540.0
 @onready var arrow_spawn: Marker2D        = $ArrowSpawn
 @onready var cam:         Camera2D        = $Camera2D
 
+var PlayerClass = load("res://playerclass.gd")
+
 # Safe animation — silently skips missing clips (clips are built in _ready).
 func _safe_anim(clip: String) -> void:
 	if not anim or not anim.has_animation(clip): return
@@ -143,6 +145,15 @@ func _physics_process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if not _alive: return
 	# ESC: close open panels or open options
+	# Class abilities — Q, E, R
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_Q:
+			PlayerClass.use_ability(self, 0)
+		elif event.keycode == KEY_F:
+			PlayerClass.use_ability(self, 1)
+		elif event.keycode == KEY_R:
+			PlayerClass.use_ability(self, 2)
+			
 	if event.is_action_pressed("ui_cancel"):
 		var hud = get_node_or_null("../UI/HUD")
 		if not hud: return
@@ -441,6 +452,7 @@ func _cast_spell(item) -> void:
 		if hud: hud.show_popup("Not enough mana!", 1.0)
 		return
 	mana -= 10
+	PlayerClass.on_spell_cast()
 	emit_signal("mana_changed", mana, max_mana)
 	var scene = load("res://scenes/spells/generic_bolt.tscn")
 	if scene:
@@ -453,6 +465,7 @@ func _cast_spell(item) -> void:
 
 # ── DAMAGE ────────────────────────────────────────────────────
 func take_damage(amount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
+	#amount = PlayerClass.on_player_take_damage(self, amount)
 	if has_node("/root/AudioManager"): AudioManager.play("hurt", 0.12)
 	if _iframes > 0.0 or not _alive: return
 	var dmg = max(1, amount - defense)

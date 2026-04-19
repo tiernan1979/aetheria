@@ -18,6 +18,8 @@ var current_phase: int = 1
 var _phase_idx:    int = 0
 
 func _ready() -> void:
+	var w3d = get_tree().get_first_node_in_group("world3d")
+	if w3d: w3d.set_boss_arena_lighting(boss_id)
 	super._ready()
 	add_to_group("boss")
 	# Show boss health bar via HUD
@@ -41,6 +43,8 @@ func take_damage(amount: int, knockback_dir: Vector2 = Vector2.ZERO) -> void:
 	_check_phase_transition()
 
 func _die() -> void:
+	var w3d = get_tree().get_first_node_in_group("world3d")
+	if w3d: w3d.restore_normal_lighting()
 	emit_signal("boss_died", boss_id, global_position)
 	_notify_world_boss_died()
 	super._die()

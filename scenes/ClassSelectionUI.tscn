@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://cqev8ninxttuj"]
+
+[ext_resource type="Script" uid="uid://dfjp26rciij7y" path="res://scripts/ClassSelectionUI.gd" id="1_hky7k"]
+
+[node name="ClassSelectionUi" type="Control" unique_id=1809350873]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hky7k")
+
+[node name="Panel" type="Panel" parent="." unique_id=99520298]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=160175193]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Panel/VBox" unique_id=1616449051]
+layout_mode = 2
+text = "Choose your Class"
+
+[node name="ClassGrid" type="HBoxContainer" parent="Panel/VBox" unique_id=1379010990]
+layout_mode = 2
+
+[node name="DetailPanel" type="Control" parent="Panel/VBox" unique_id=971710502]
+custom_minimum_size = Vector2(600, 180)
+layout_mode = 2
+
+[node name="SelectBtn" type="Button" parent="Panel/VBox" unique_id=629057843]
+layout_mode = 2
