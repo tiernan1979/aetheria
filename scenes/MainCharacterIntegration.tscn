@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://character_integration"]
+
+[ext_resource type="Script" path="res://scripts/PlayerIntegration.gd" id="1_player_integration"]
+[ext_resource type="Script" path="res://scripts/WindSystem.gd" id="2_wind_system"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_player_integration")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="WindSystem" type="Node" parent="."]
+script = ExtResource("2_wind_system")
